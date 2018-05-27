@@ -1,9 +1,9 @@
 # Procedural.SkyBox
 Skybox with moon, sun, and night stars!
 
-![alt text](https://raw.githubusercontent.com/shadowlenz/Procedural.SkyBox/examplePic1.png)
-![alt text](https://raw.githubusercontent.com/shadowlenz/Procedural.SkyBox/examplePic2.png)
-![alt text](https://raw.githubusercontent.com/shadowlenz/Procedural.SkyBox/examplePic3.png)
+![alt text](https://raw.githubusercontent.com/shadowlenz/Procedural.SkyBox/master/examplePic1.png)
+![alt text](https://raw.githubusercontent.com/shadowlenz/Procedural.SkyBox/master/examplePic2.png)
+![alt text](https://raw.githubusercontent.com/shadowlenz/Procedural.SkyBox/master/examplePic3.png)
  
  - Star Sky cubemap can be rotated over time.
  - Directional and moon light will smoothly appear overtime.
