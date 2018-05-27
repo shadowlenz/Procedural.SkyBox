@@ -1,0 +1,347 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1210685567151590}
+  m_IsPrefabParent: 1
+--- !u!1 &1210685567151590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4602867874580324}
+  - component: {fileID: 108115085110071042}
+  - component: {fileID: 114635619964397720}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1494576992045022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4524653916115312}
+  - component: {fileID: 108805550256824310}
+  m_Layer: 0
+  m_Name: moonLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4524653916115312
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1494576992045022}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: -0.00000004371139}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4602867874580324}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4602867874580324
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210685567151590}
+  m_LocalRotation: {x: 0.008726535, y: 0, z: 0, w: 0.9999619}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4524653916115312}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &108115085110071042
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210685567151590}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 1
+  m_Color: {r: 1, g: 0.6518287, b: 0.6077437, a: 1}
+  m_Intensity: 1.3
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 1
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 0.588
+    m_Bias: 0.23
+    m_NormalBias: 0.4
+    m_NearPlane: 0.1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4293132287
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!108 &108805550256824310
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1494576992045022}
+  m_Enabled: 0
+  serializedVersion: 8
+  m_Type: 1
+  m_Color: {r: 1, g: 0.6509804, b: 0.60784316, a: 1}
+  m_Intensity: 0
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!114 &114635619964397720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210685567151590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca025090495343849aeeba2d8dec3d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 108115085110071042}
+  lightIntensity: 1.3
+  moonLightIntensity: 1
+  speed: 1
+  sunSizeOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.96021503
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dayTopColorOverTime:
+    serializedVersion: 2
+    key0: {r: 0.1607843, g: 0.46378902, b: 0.62352943, a: 1}
+    key1: {r: 0.3443396, g: 0.94479674, b: 1, a: 1}
+    key2: {r: 0.7490196, g: 0.9985596, b: 1, a: 0}
+    key3: {r: 0.4362763, g: 0.47962016, b: 0.7169812, a: 0}
+    key4: {r: 0.4362763, g: 0.47962016, b: 0.7169812, a: 0}
+    key5: {r: 0.19424173, g: 0.23074813, b: 0.4245283, a: 0}
+    key6: {r: 0.14533643, g: 0.23192425, b: 0.4339623, a: 0}
+    key7: {r: 0.14533643, g: 0.23192425, b: 0.4339623, a: 0}
+    ctime0: 96
+    ctime1: 32189
+    ctime2: 48959
+    ctime3: 65152
+    ctime4: 65152
+    ctime5: 65343
+    ctime6: 65535
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
+  dayColorOverTime:
+    serializedVersion: 2
+    key0: {r: 1, g: 0.643424, b: 0.5990566, a: 1}
+    key1: {r: 1, g: 0.9993885, b: 0.9669811, a: 1}
+    key2: {r: 1, g: 0.9980856, b: 0.9386792, a: 0}
+    key3: {r: 0.990566, g: 0.8167053, b: 0.70554465, a: 0}
+    key4: {r: 1, g: 0.66839004, b: 0.5613208, a: 0}
+    key5: {r: 0.4249288, g: 0.50672156, b: 0.6996555, a: 0}
+    key6: {r: 0.4249288, g: 0.50672156, b: 0.6996555, a: 0}
+    key7: {r: 0.4249288, g: 0.50672156, b: 0.6996555, a: 0}
+    ctime0: 0
+    ctime1: 15420
+    ctime2: 37779
+    ctime3: 50693
+    ctime4: 65535
+    ctime5: 65535
+    ctime6: 65535
+    ctime7: 65535
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  nightTopColorOverTime:
+    serializedVersion: 2
+    key0: {r: 0.43921572, g: 0.48235297, b: 0.7176471, a: 1}
+    key1: {r: 0.21960786, g: 0.23529413, b: 0.41960788, a: 1}
+    key2: {r: 0.041117836, g: 0.10654092, b: 0.26415092, a: 0}
+    key3: {r: 0.04045672, g: 0.11295891, b: 0.26635933, a: 0}
+    key4: {r: 0.027450982, g: 0.2392157, b: 0.30980393, a: 0}
+    key5: {r: 0.14901961, g: 0.43529415, b: 0.58431375, a: 0}
+    key6: {r: 0.4362763, g: 0.47962016, b: 0.7169812, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 8336
+    ctime2: 18683
+    ctime3: 48768
+    ctime4: 55666
+    ctime5: 65535
+    ctime6: 65535
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 6
+    m_NumAlphaKeys: 2
+  nightColorOverTime:
+    serializedVersion: 2
+    key0: {r: 1, g: 0.6745098, b: 0.5686275, a: 1}
+    key1: {r: 0.43921572, g: 0.48235297, b: 0.654902, a: 1}
+    key2: {r: 0.034709856, g: 0.3336406, b: 0.49056602, a: 0}
+    key3: {r: 0.03892975, g: 0.3326263, b: 0.48920095, a: 0}
+    key4: {r: 0.2627451, g: 0.47450984, b: 0.6627451, a: 0}
+    key5: {r: 1, g: 0.6509804, b: 0.60784316, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 7377
+    ctime2: 16192
+    ctime3: 49343
+    ctime4: 60074
+    ctime5: 65535
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 6
+    m_NumAlphaKeys: 2
+  dayFogOverTime:
+    serializedVersion: 2
+    key0: {r: 0.10946956, g: 0.40520123, b: 0.5660378, a: 1}
+    key1: {r: 0.4269313, g: 0.6569833, b: 0.7735849, a: 1}
+    key2: {r: 0.40530434, g: 0.8015658, b: 0.8679245, a: 0}
+    key3: {r: 0.4161402, g: 0.6363109, b: 0.7601112, a: 0}
+    key4: {r: 0.10946956, g: 0.40520123, b: 0.5660378, a: 0}
+    key5: {r: 0.10946956, g: 0.40520123, b: 0.5660378, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 15998
+    ctime2: 31226
+    ctime3: 46838
+    ctime4: 62837
+    ctime5: 62837
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  fogToDayColor: 1
+  degreesSkip: 45
+  dayLightTime: 0.0055555557
+  nightLightTime: 1
+  moonLightGo: {fileID: 1494576992045022}
+  moonLight: {fileID: 108805550256824310}
+  fadeNight: 0
+  smoothFadeNight: 0.000000059604645
+  sky: {fileID: 2100000, guid: 4acd1f3c31aeb974485d67342daf2c24, type: 2}

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ca025090495343849aeeba2d8dec3d46
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - light: {instanceID: 0}
+  - moonLightGo: {instanceID: 0}
+  - moonLight: {instanceID: 0}
+  - sky: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
