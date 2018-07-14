@@ -85,7 +85,7 @@ public class DayNightCycle : MonoBehaviour {
             //grab sky material from render settings
         }
 
-            sky = RenderSettings.skybox;
+            sky = RenderSettings.skybox = new Material(RenderSettings.skybox);
 
     }
 

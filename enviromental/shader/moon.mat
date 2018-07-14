@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: sky
-  m_Shader: {fileID: 4800000, guid: 9cba140c2332e6b4fa44fb871de9a065, type: 3}
-  m_ShaderKeywords: _SUNDISK_HIGH_QUALITY
+  m_Name: moon
+  m_Shader: {fileID: 4800000, guid: 570971c92b794f348b334d498f70bc54, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -18,6 +18,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -39,23 +43,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c3ffa819781dc444e88ea4368bd21171, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Moon:
-        m_Texture: {fileID: 2800000, guid: ea72c1becf2af484da88494238b89ada, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MoonTex:
-        m_Texture: {fileID: 2800000, guid: d447a6adbb9408b4e8cad9533b764f3c, type: 3}
-        m_Scale: {x: 10, y: 10}
-        m_Offset: {x: 1, y: 1}
-    - _NightStars:
-        m_Texture: {fileID: 8900000, guid: 41bd1f2c511c9f6428bc0f7efe330511, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -67,44 +59,44 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AtmosphereThickness: 1
+    - PixelSnap: 0
     - _BumpScale: 1
+    - _ColorMask: 15
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Exposure: 1.3
-    - _FogExp: 0.1
+    - _EnableExternalAlpha: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _InvFade: 1
     - _Metallic: 0
     - _Mode: 0
-    - _MoonIntensity: 0.62
-    - _MoonScale: 0.119
-    - _NightOpacity: 0.000000059604645
-    - _NightSkySpeed: 0.15
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SkyExponent1: 1.5
-    - _SkyIntensity: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SunDisk: 2
-    - _SunIntensity: 10.55
-    - _SunScale: 0.96297514
-    - _SunSize: 0.09849851
-    - _SunSizeConvergence: 5
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _TransAmbient: 0.2
+    - _TransDirect: 1
+    - _TransNormalDistortion: 0.1
+    - _TransScattering: 2
+    - _TransShadow: 0.9
+    - _Translucency: 1
     - _UVSec: 0
+    - _UseUIAlphaClip: 0
     - _ZWrite: 1
+    - __dirty: 0
+    - _intensity: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GroundColor: {r: 0.36899996, g: 0.34899998, b: 0.34099993, a: 1}
-    - _MoonColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MoonVector: {r: 0.269, g: 0.615, b: 0.74, a: 0}
-    - _SkyColor1: {r: 0.4855653, g: 0.963559, b: 1, a: 1}
-    - _SkyColor2: {r: 0.9998083, g: 0.99439996, b: 0.9339419, a: 1}
-    - _SkyColor3: {r: 0.9998083, g: 0.99439996, b: 0.9339419, a: 1}
-    - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _SunColor: {r: 1, g: 0.98999995, b: 0.87, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

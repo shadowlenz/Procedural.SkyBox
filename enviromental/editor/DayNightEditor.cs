@@ -97,21 +97,27 @@ public class DayNightEditor : Editor
 
         if (_target.light != null && _target.moonLightGo != null && _target.moonLight != null && !Application.isPlaying)
         {
+            EditorGUI.BeginChangeCheck();
+            if (_target.transform.hasChanged)
+            {
+                if (GUI.changed)
+                {
 
-            if (GUI.changed)
-            {
-                _target.SkyColor();
-            }
-            oldVec = _target.light.transform.eulerAngles;
-             if (oldVec != newVec)
-            {
+
+                    _target.SkyColor();
+                }
+                oldVec = _target.light.transform.eulerAngles;
+                if (oldVec != newVec)
+                {
 
                     _target.Update();
 
-                oldVec = _target.light.transform.eulerAngles;
-                newVec = oldVec;
+                    oldVec = _target.light.transform.eulerAngles;
+                    newVec = oldVec;
 
+                }
             }
+            EditorGUI.EndChangeCheck();
         }
 
      }
@@ -119,25 +125,30 @@ public class DayNightEditor : Editor
     protected virtual void OnSceneGUI()
     {
         DayNightCycle _target = (DayNightCycle)target;
+        EditorGUI.BeginChangeCheck();
+
         if (_target.light == null || _target.moonLightGo == null || _target.moonLight == null)
         {
             return;
         }
 
-        if (Event.current.type == EventType.Repaint)
-        {
-            Transform transform = _target.transform;
 
-            Handles.color = _target.light.color;
-            Handles.ArrowHandleCap(
-                0,
-                transform.position + transform.forward*3,
-                transform.rotation ,
-                 Vector3.Distance (Camera.current.transform.position, _target.transform.position)/5,
-                EventType.Repaint
-                );
-          
-        }
+            if (Event.current.type == EventType.Repaint)
+            {
+                Transform transform = _target.transform;
+
+                Handles.color = _target.light.color;
+                Handles.ArrowHandleCap(
+                    0,
+                    transform.position + transform.forward * 3,
+                    transform.rotation,
+                     Vector3.Distance(Camera.current.transform.position, _target.transform.position) / 5,
+                    EventType.Repaint
+                    );
+
+            }
+       
+        EditorGUI.EndChangeCheck();
     }
 
 

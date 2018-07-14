@@ -16,6 +16,7 @@ Shader "Skybox/ProceduralGradient"
 		_MoonColor("Moon Color", Color) = (1, 0.99, 0.87, 1)
 		_MoonIntensity("Moon Intensity", Range(0.0,20.0)) = 10.0
 		_MoonScale ("Moon Scale", Range(0.0,1.0)) = 1.0
+		_MoonTex ("Texture", 2D) = "black" {}
 
 		_SunColor("Sun Color", Color) = (1, 0.99, 0.87, 1)
 		_SunIntensity("Sun Intensity", Range(0.0,20.0)) = 10.0
@@ -44,6 +45,7 @@ Shader "Skybox/ProceduralGradient"
 		float4 position : SV_POSITION;
 		float3 texcoord : TEXCOORD0;
 				float3 texcoord1 : TEXCOORD1;
+				float3 texcoord2 : TEXCOORD2;
 	};
 
 	half3 _SkyColor1;
@@ -55,10 +57,11 @@ Shader "Skybox/ProceduralGradient"
 
 	half _SkyIntensity;
 
-	  //sampler2D _Moon;
 	half3 _MoonColor;
 		half _MoonIntensity;
 			half _MoonScale;
+			 sampler2D _MoonTex;
+			 uniform float4 _MoonTex_ST; 
 
 	half3 _SunColor;
 	half _SunIntensity;
@@ -75,7 +78,7 @@ Shader "Skybox/ProceduralGradient"
 		o.texcoord = v.texcoord;
 
 		o.texcoord1 = v.texcoord;
-			    //o.texcoord1.xy -=0.5;
+
                 float s = sin ( _NightSkySpeed * _Time );
                 float c = cos ( _NightSkySpeed * _Time );
                 float2x2 rotationMatrix = float2x2( c, -s, s, c);
@@ -83,9 +86,17 @@ Shader "Skybox/ProceduralGradient"
                 rotationMatrix +=0.5;
                 rotationMatrix = rotationMatrix * 2-1;
                 o.texcoord1.xy = mul ( o.texcoord1.xy, rotationMatrix );
-              // o.texcoord1.xy += 0.5;
+  
+
+
+
+
+			 // o.texcoord2.xy = ((v.texcoord) * _MoonTex_ST.xy + _MoonTex_ST.zw);
+
 		return o;
 	}
+
+
 
 	half4 frag(v2f i) : COLOR
 	{
@@ -109,8 +120,13 @@ Shader "Skybox/ProceduralGradient"
 		half3 c_moon = lerp (0,moon, clamp (	p *(_SkyExponent1+5)+0.6,0,1) ); //fade below horizon
 
 		float3 nightSky = 	lerp (0 ,texCUBE (_NightStars, i.texcoord1 ).rgb	 ,clamp (	p *_SkyExponent1,0,1) *_NightOpacity)  ;
-		
-		return half4((c_sky * _SkyIntensity) +( c_sun * _SunIntensity )+( c_moon *_MoonIntensity)  +nightSky, 0);
+
+		//fixed4 moonCol = tex2D(_MoonTex, i.texcoord2);
+;
+		half4 skycol = half4((c_sky * _SkyIntensity) +( c_sun * _SunIntensity )  +nightSky, 0);
+		//skycol = lerp(skycol, skycol+moonCol*_MoonIntensity, moonCol.a);
+
+		return skycol;
 	}
 
 		ENDCG
@@ -127,6 +143,7 @@ Shader "Skybox/ProceduralGradient"
 			#pragma fragmentoption ARB_precision_hint_fastest
 			#pragma vertex vert
 			#pragma fragment frag
+
 			ENDCG
 		}
 	}
