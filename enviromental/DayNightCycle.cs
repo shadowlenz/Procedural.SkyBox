@@ -177,6 +177,7 @@ public class DayNightCycle : MonoBehaviour {
 
 
         RenderSettings.fogColor = _dayFogOverTime;
+       // RenderSettings.ambientLight = _dayFogOverTime/3;
         if (!useOwnShader)
         {
             sky.SetColor("_SkyColor3", _dayFogOverTime);
