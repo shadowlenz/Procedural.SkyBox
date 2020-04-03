@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: sky
   m_Shader: {fileID: 4800000, guid: 9cba140c2332e6b4fa44fb871de9a065, type: 3}
   m_ShaderKeywords: _SUNDISK_HIGH_QUALITY
@@ -81,7 +82,7 @@ Material:
     - _Mode: 0
     - _MoonIntensity: 0.62
     - _MoonScale: 0.119
-    - _NightOpacity: 0.000000059604645
+    - _NightOpacity: 0
     - _NightSkySpeed: 0.15
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -92,7 +93,7 @@ Material:
     - _SrcBlend: 1
     - _SunDisk: 2
     - _SunIntensity: 10.55
-    - _SunScale: 0.963105
+    - _SunScale: 0.96157444
     - _SunSize: 0.09849851
     - _SunSizeConvergence: 5
     - _UVSec: 0
@@ -103,8 +104,8 @@ Material:
     - _GroundColor: {r: 0.36899996, g: 0.34899998, b: 0.34099993, a: 1}
     - _MoonColor: {r: 1, g: 1, b: 1, a: 1}
     - _MoonVector: {r: 0.269, g: 0.615, b: 0.74, a: 0}
-    - _SkyColor1: {r: 0.4887197, g: 0.96397805, b: 1, a: 1}
-    - _SkyColor2: {r: 0.9997128, g: 0.99256396, b: 0.93158203, a: 1}
-    - _SkyColor3: {r: 0.9997128, g: 0.99256396, b: 0.93158203, a: 1}
+    - _SkyColor1: {r: 0.44598988, g: 0.95830125, b: 1, a: 1}
+    - _SkyColor2: {r: 1, g: 0.9981659, b: 0.94042295, a: 1}
+    - _SkyColor3: {r: 1, g: 0.9981659, b: 0.94042295, a: 1}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SunColor: {r: 1, g: 0.98999995, b: 0.87, a: 1}

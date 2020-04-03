@@ -32,10 +32,13 @@ public class DayNightCycle : MonoBehaviour {
     public float fogToDayColor;
     Color _dayFogOverTime;
 
+
     [Header("debug")]
     public float degreesSkip = 45;
 
-	[Range (0,1)]
+    [Range(0, 1)]
+    public float timeOfDay = 0;
+    [Range (0,1)]
 	public float dayLightTime;
 	[Range (0,1)]
 	public float nightLightTime;
@@ -88,6 +91,17 @@ public class DayNightCycle : MonoBehaviour {
             sky = RenderSettings.skybox = new Material(RenderSettings.skybox);
 
     }
+    public void TimeOfDayBar()
+    {
+        if (nightLightTime > 0 && dayLightTime > 0 && dayLightTime < 1) nightLightTime = 0;
+        float isNight = 0;
+        if (nightLightTime > 0) isNight = 1;
+        timeOfDay = (dayLightTime + nightLightTime + isNight) / 2;
+    }
+    public void ChangeTimeTo(float range)
+    {
+        light.transform.localEulerAngles =new Vector3(range*360, 0, 0);
+    }
 
     // Update is called once per frame
     public void Update () {
@@ -99,7 +113,8 @@ public class DayNightCycle : MonoBehaviour {
 		dayLightTime = Mathf.Clamp01 ( currentRot.x/180);
         float _nightLightTime = Mathf.Clamp01(-currentRot.x / 180);
         nightLightTime = Mathf.Lerp(1, 0, _nightLightTime);
-
+        ///
+        TimeOfDayBar();
 
         //shuts lights as it goes over the horizon
         if ( dayLightTime <= 0 || dayLightTime >= 1)

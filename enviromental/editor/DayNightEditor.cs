@@ -14,6 +14,8 @@ public class DayNightEditor : Editor
     Vector3 oldVec = Vector3.one;
     Vector3 newVec = Vector3.zero;
     public Material skyMat;
+
+    static float time;
     public override void OnInspectorGUI()
     {
         DayNightCycle _target = (DayNightCycle)target;
@@ -94,6 +96,21 @@ public class DayNightEditor : Editor
         {
             _target.Debug();
         }
+
+        EditorGUI.BeginChangeCheck();
+        time = (GUILayout.HorizontalSlider(time, 0, 1));
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            _target.ChangeTimeTo(time);
+        }
+        else
+        {
+            time = _target.timeOfDay;
+        }
+
+
+        GUILayout.Space(50);
 
         if (_target.light != null && _target.moonLightGo != null && _target.moonLight != null && !Application.isPlaying)
         {
