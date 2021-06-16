@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DayNightSceneEnabler : MonoBehaviour
 {
-    public DayNightCycle dayNightCycleMaster;
+    public DayNightCycle dayNightCycleManager;
     [Space()]
     public bool activeDayNight=true;
 
@@ -24,7 +24,7 @@ public class DayNightSceneEnabler : MonoBehaviour
         if (DayNightCycle.instance == null)
         {
             Debug.Log("no skybox exsist. Spawns one");
-            Instantiate(dayNightCycleMaster);
+            Instantiate(dayNightCycleManager);
         }
         yield return new WaitUntil(() => DayNightCycle.instance != null);
 
