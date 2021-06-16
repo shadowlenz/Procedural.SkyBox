@@ -86,7 +86,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GradientPow: 1
+    - _GradientPow: 2
     - _Metallic: 0
     - _Mode: 0
     - _MoonIntensity: 0.62
@@ -127,7 +127,7 @@ Material:
     - _SkyColor3: {r: 1, g: 0.9984524, b: 0.94664717, a: 1}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SunColor: {r: 1, g: 0.98999995, b: 0.87, a: 1}
-    - _ground: {r: 1, g: 0.9992652, b: 0.9643023, a: 1}
-    - _horizon: {r: 1, g: 0.9992652, b: 0.9643023, a: 1}
-    - _top: {r: 0.26053375, g: 0.725183, b: 0.8281148, a: 1}
+    - _ground: {r: 1, g: 0.9985731, b: 0.94926834, a: 1}
+    - _horizon: {r: 1, g: 0.9985731, b: 0.94926834, a: 1}
+    - _top: {r: 0.32846463, g: 0.9031962, b: 0.9674405, a: 1}
   m_BuildTextureStacks: []

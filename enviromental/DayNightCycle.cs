@@ -108,13 +108,17 @@ public class DayNightCycle : MonoBehaviour {
 
     // Update is called once per frame
     public void Update () {
-        if (DebugGame.instance != null && DebugGame.instance.inDebug) return;
+        if (Application.isPlaying && DebugGame.instance != null && DebugGame.instance.inDebug) return;
 
+        UpdateSky();
+    }
+    public void UpdateSky()
+    {
         //rotate light 360 over time
-        light.transform.Rotate (new Vector3 ( (Time.deltaTime * skyData.speed), 0,0));
-		//calculate debug
-		Vector3 currentRot = GetYawPitch.GetPitchYawRollDeg (light.transform.rotation  );
-		dayLightTime = Mathf.Clamp01 ( currentRot.x/180);
+        light.transform.Rotate(new Vector3((Time.deltaTime * skyData.speed), 0, 0));
+        //calculate debug
+        Vector3 currentRot = GetYawPitch.GetPitchYawRollDeg(light.transform.rotation);
+        dayLightTime = Mathf.Clamp01(currentRot.x / 180);
         float _nightLightTime = Mathf.Clamp01(-currentRot.x / 180);
         nightLightTime = Mathf.Lerp(1, 0, _nightLightTime);
         ///
@@ -169,7 +173,6 @@ public class DayNightCycle : MonoBehaviour {
             moonLight.enabled = false;
             moonLightGo.SetActive(false);
         }
-        
     }
 
 

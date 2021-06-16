@@ -103,6 +103,8 @@ public class DayNightEditor : Editor
             if (_target.moonLight != null) Undo.RecordObject(_target.moonLight, "tweak time");
 
             _target.ChangeTimeTo(time);
+            _target.UpdateSky();
+
         }
         else
         {
@@ -114,27 +116,19 @@ public class DayNightEditor : Editor
 
         if (_target.light != null && _target.moonLightGo != null && _target.moonLight != null && !Application.isPlaying)
         {
-            EditorGUI.BeginChangeCheck();
+
             if (_target.transform.hasChanged)
             {
                 if (GUI.changed)
                 {
+                    //_target.SkyColor();
+                    _target.UpdateSky();
 
-
-                    _target.SkyColor();
+                    GUI.changed = false;
                 }
-                oldVec = _target.light.transform.eulerAngles;
-                if (oldVec != newVec)
-                {
 
-                    _target.Update();
-
-                    oldVec = _target.light.transform.eulerAngles;
-                    newVec = oldVec;
-
-                }
             }
-            EditorGUI.EndChangeCheck();
+
         }
 
      }
