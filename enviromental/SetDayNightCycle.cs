@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DayNightSceneEnabler : MonoBehaviour
+//sets DayNightCycle manager onEnable. Place this in scene
+public class SetDayNightCycle : MonoBehaviour
 {
     public DayNightCycle dayNightCycleManager;
     [Space()]
