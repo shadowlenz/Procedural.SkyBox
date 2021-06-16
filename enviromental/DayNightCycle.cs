@@ -82,6 +82,7 @@ public class DayNightCycle : MonoBehaviour {
 
     public void Setup()
     {
+        RenderSettings.sun = light;
         if (moonLightGo == null) moonLightGo.transform.Rotate(180, 0, 0);
 
         SkyMatSetup();
