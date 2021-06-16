@@ -12,7 +12,6 @@ public class DayNightCycle : MonoBehaviour {
     public static DayNightCycle instance;
 
     public bool active_DayNight = true;
-    public bool useOwnShader;
 
     Material skyBoxMat_Clone;
 
@@ -179,6 +178,12 @@ public class DayNightCycle : MonoBehaviour {
         light.transform.Rotate(new Vector3(degreesSkip, 0, 0));
     }
 
+    [Header("mat properties")]
+    public string _topColor = "_SkyColor1";
+    public string _midColor = "_SkyColor2";
+    public string _bottomColor = "_SkyColor3";
+    public string _nightOpacity = "_NightOpacity";
+    public string _sunScale = "_SunScale";
     public void SkyColor()
     {
         SmoothNight();
@@ -186,39 +191,34 @@ public class DayNightCycle : MonoBehaviour {
         light.color = skyData.dayColorOverTime.Evaluate(dayLightTime);
         moonLight.color = skyData.nightColorOverTime.Evaluate(nightLightTime);
 
-        //sky.SetColor("_SkyColor1", Color.Lerp(dayColorOverTime.Evaluate(dayLightTime), dayFogOverTime.Evaluate(dayLightTime), smoothFadeNight));
         if (dayLightTime > 0)
         {
-            if (!useOwnShader)
-            {
-                RenderSettings.skybox.SetColor("_SkyColor1", (skyData.dayTopColorOverTime.Evaluate(dayLightTime)));
-                RenderSettings.skybox.SetColor("_SkyColor2", skyData.dayColorOverTime.Evaluate(dayLightTime));
-            }
+            //_topColor
+            if (RenderSettings.skybox.HasProperty(_topColor)) RenderSettings.skybox.SetColor(_topColor, (skyData.dayTopColorOverTime.Evaluate(dayLightTime)));
+            //_midColor
+            if (RenderSettings.skybox.HasProperty(_midColor)) RenderSettings.skybox.SetColor(_midColor, skyData.dayColorOverTime.Evaluate(dayLightTime));
+
 
             _dayFogOverTime = Color.Lerp(skyData.dayFogOverTime.Evaluate(dayLightTime), skyData.dayColorOverTime.Evaluate(dayLightTime), skyData.fogToDayColor);
         }
         else
         {
-            if (!useOwnShader)
-            {
-                RenderSettings.skybox.SetColor("_SkyColor1", (skyData.nightTopColorOverTime.Evaluate(nightLightTime)));
-                RenderSettings.skybox.SetColor("_SkyColor2", skyData.nightColorOverTime.Evaluate(nightLightTime));
-            }
+            //_topColor
+            if (RenderSettings.skybox.HasProperty(_topColor)) RenderSettings.skybox.SetColor(_topColor, (skyData.nightTopColorOverTime.Evaluate(nightLightTime)));
+            //_midColor
+            if (RenderSettings.skybox.HasProperty(_midColor)) RenderSettings.skybox.SetColor(_midColor, skyData.nightColorOverTime.Evaluate(nightLightTime));
 
             _dayFogOverTime = Color.Lerp(skyData.dayFogOverTime.Evaluate(dayLightTime), skyData.nightColorOverTime.Evaluate(nightLightTime), skyData.fogToDayColor);
         }
 
 
         RenderSettings.fogColor = _dayFogOverTime;
-       // RenderSettings.ambientLight = _dayFogOverTime/3;
-        if (!useOwnShader)
-        {
-            RenderSettings.skybox.SetColor("_SkyColor3", _dayFogOverTime);
+        //_bottomColor
+        if (RenderSettings.skybox.HasProperty(_bottomColor)) RenderSettings.skybox.SetColor(_bottomColor, _dayFogOverTime);
 
-            //nightsky
-            RenderSettings.skybox.SetFloat("_NightOpacity", smoothFadeNight);
-            RenderSettings.skybox.SetFloat("_SunScale", skyData.sunSizeOverTime.Evaluate(dayLightTime));
-        }
+        //nightsky
+        if (RenderSettings.skybox.HasProperty(_nightOpacity)) RenderSettings.skybox.SetFloat(_nightOpacity, smoothFadeNight);
+        if (RenderSettings.skybox.HasProperty(_sunScale)) RenderSettings.skybox.SetFloat(_sunScale, skyData.sunSizeOverTime.Evaluate(dayLightTime));
 
     }
     public void SmoothNight()

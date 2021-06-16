@@ -25,25 +25,15 @@ public class DayNightEditor : Editor
         Debug.Log(StageUtility.GetMainStage());
         if (!_target.gameObject.scene.IsValid() || StageUtility.GetMainStage() == null) return;
 
-        if (RenderSettings.skybox == null && !_target.useOwnShader)
-        {
-            EditorGUILayout.HelpBox("Please add missing sky material under 'lighting setting. Use 'Skybox/ProceduralGradient' shader", MessageType.Error);
-            _target.useOwnShader = EditorGUILayout.Toggle("Use Own Shader", _target.useOwnShader);
-            return;
-        }
 
-        if (_target.light == null || _target.moonLightGo == null || _target.moonLight == null ||
-             (RenderSettings.skybox == null || (RenderSettings.skybox != null && RenderSettings.skybox.shader.name != "Skybox/ProceduralGradient"))
-            //(RenderSettings.skybox == null || (RenderSettings.skybox != null && RenderSettings.skybox.shader.name != "Skybox/Skybox-Procedural"))
-            )
+        if ( RenderSettings.skybox == null )
 
         {
             GUI.color = new Color(1, 0.5f, 0.5f);
             if (!Application.isPlaying && GUILayout.Button("Setup"))
             {
 
-                if (!_target.useOwnShader)
-                {
+
                     if (RenderSettings.skybox == null) RenderSettings.skybox = skyMat;
                     else
                     {
@@ -51,13 +41,12 @@ public class DayNightEditor : Editor
                         //Shader _shader = Shader.Find("Skybox/Skybox-Procedural");
                         RenderSettings.skybox.shader = _shader;
                     }
-                }
+                
 
                 _target.Setup();
             }
 
-            GUI.color = Color.white;
-            _target.useOwnShader = EditorGUILayout.Toggle("Use Own Shader", _target.useOwnShader);
+
             return;
         }
 

@@ -108,10 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active_DayNight: 1
-  useOwnShader: 0
   light: {fileID: 108115085110071042}
   skyData:
-    skyBoxMat: {fileID: 2100000, guid: 4acd1f3c31aeb974485d67342daf2c24, type: 2}
+    skyBoxMat: {fileID: 2100000, guid: 4a0e45b5ff893b541a2a29c8073ae471, type: 2}
     lightIntensity: 1.3
     moonLightIntensity: 2
     speed: 1
@@ -120,7 +119,7 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 3
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -128,8 +127,8 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
-        value: 0.96021503
+        time: 0.5351258
+        value: 2
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -138,7 +137,7 @@ MonoBehaviour:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 1
+        value: 3
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -302,6 +301,11 @@ MonoBehaviour:
   moonLight: {fileID: 108805550256824310}
   fadeNight: 0
   smoothFadeNight: 0
+  _topColor: _SkyColor1
+  _midColor: _SkyColor2
+  _bottomColor: _SkyColor3
+  _nightOpacity: _NightOpacity
+  _sunScale: _SunScale
 --- !u!1 &1494576992045022
 GameObject:
   m_ObjectHideFlags: 0
