@@ -109,6 +109,10 @@ public class DayNightEditor : Editor
 
         if (EditorGUI.EndChangeCheck())
         {
+            Undo.RecordObject(_target, "tweak time");
+            if (_target.light != null) Undo.RecordObject(_target.light, "tweak time");
+            if (_target.moonLight != null) Undo.RecordObject(_target.moonLight, "tweak time");
+
             _target.ChangeTimeTo(time);
         }
         else
