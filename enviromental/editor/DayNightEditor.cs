@@ -8,6 +8,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
 [CustomEditor(typeof(DayNightCycle))]
 public class DayNightEditor : Editor
 {
@@ -20,6 +22,9 @@ public class DayNightEditor : Editor
     {
         DayNightCycle _target = (DayNightCycle)target;
 
+        Debug.Log(StageUtility.GetMainStage());
+        if (!_target.gameObject.scene.IsValid() || StageUtility.GetMainStage() == null) return;
+
         if (RenderSettings.skybox == null && !_target.useOwnShader)
         {
             EditorGUILayout.HelpBox("Please add missing sky material under 'lighting setting. Use 'Skybox/ProceduralGradient' shader", MessageType.Error);
@@ -28,7 +33,8 @@ public class DayNightEditor : Editor
         }
 
         if (_target.light == null || _target.moonLightGo == null || _target.moonLight == null ||
-            (RenderSettings.skybox == null || (RenderSettings.skybox != null && RenderSettings.skybox.shader.name != "Skybox/ProceduralGradient"))
+             (RenderSettings.skybox == null || (RenderSettings.skybox != null && RenderSettings.skybox.shader.name != "Skybox/ProceduralGradient"))
+            //(RenderSettings.skybox == null || (RenderSettings.skybox != null && RenderSettings.skybox.shader.name != "Skybox/Skybox-Procedural"))
             )
 
         {
@@ -42,6 +48,7 @@ public class DayNightEditor : Editor
                     else
                     {
                         Shader _shader = Shader.Find("Skybox/ProceduralGradient");
+                        //Shader _shader = Shader.Find("Skybox/Skybox-Procedural");
                         RenderSettings.skybox.shader = _shader;
                     }
                 }

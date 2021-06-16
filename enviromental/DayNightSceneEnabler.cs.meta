@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 079053d4d5fafd64abaf3970eb1a214a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - dayNightCycleMaster: {fileID: 114635619964397720, guid: f4f8316d63760424aa335dcc4ed8215c,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

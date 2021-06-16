@@ -10,28 +10,38 @@ using UnityEngine;
 
 public class DayNightCycle : MonoBehaviour {
     public static DayNightCycle instance;
+
+    public bool active_DayNight = true;
     public bool useOwnShader;
 
+    Material skyBoxMat_Clone;
+
     public Light light;
-    public float lightIntensity = 1.3f;
-    public float moonLightIntensity = 1;
 
-    public float speed = 1f;
-	[Space ()]
-	public AnimationCurve sunSizeOverTime;
-	[Space ()]
-    public Gradient dayTopColorOverTime;
-    public Gradient dayColorOverTime;
-    [Space()]
-    public Gradient nightTopColorOverTime;
-    public Gradient nightColorOverTime;
-    [Space()]
-    public Gradient dayFogOverTime;
-
-    [Range(0,1)]
-    public float fogToDayColor;
     Color _dayFogOverTime;
 
+    [System.Serializable]
+    public struct SkyData
+    {
+        public Material skyBoxMat;
+        public float lightIntensity;// = 1.3f;
+        public float moonLightIntensity;// = 1;
+        public float speed;//= 1f;
+        [Space()]
+        public AnimationCurve sunSizeOverTime;
+        [Space()]
+        public Gradient dayTopColorOverTime;
+        public Gradient dayColorOverTime;
+        [Space()]
+        public Gradient nightTopColorOverTime;
+        public Gradient nightColorOverTime;
+        [Space()]
+        public Gradient dayFogOverTime;
+        [Range(0, 1)]
+        public float fogToDayColor;
+
+    }
+    public SkyData skyData = new SkyData();
 
     [Header("debug")]
     public float degreesSkip = 45;
@@ -43,9 +53,7 @@ public class DayNightCycle : MonoBehaviour {
 	[Range (0,1)]
 	public float nightLightTime;
 
-    [HideInInspector()]
     public GameObject moonLightGo;
-    [HideInInspector()]
     public Light moonLight;
 
     [HideInInspector()]
@@ -54,43 +62,38 @@ public class DayNightCycle : MonoBehaviour {
     [HideInInspector()]
     [Range(0, 1)]
     public float smoothFadeNight;
-    [HideInInspector()]
-    public Material sky; //sky from RenderSetting
 
     // Use this for initialization
-    void Start () {
-        instance = this;
-        Setup();
+    void Awake () {
+
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            Setup();
+        }
+        else
+        {
+            //already exist
+            Destroy(this.gameObject);
+            return;
+        }
     }
 
     public void Setup()
     {
-        if (light == null)
-        {
-            if (GetComponent<Light>() == null) light = gameObject.AddComponent<Light>();
-            else light = gameObject.GetComponent<Light>();
-        }
+        if (moonLightGo == null) moonLightGo.transform.Rotate(180, 0, 0);
 
-        //automatically creates the moon with light source
-        if (moonLightGo == null)
-        {
-            moonLightGo = new GameObject("moonLight"); // if there are no gameobj
-
-            moonLightGo.transform.SetParent(transform, false);
-            moonLightGo.transform.Rotate(180, 0, 0);
-        }
-        if (moonLight == null)
-        {
-            moonLight = moonLightGo.AddComponent<Light>(); //create light if none exsist
-
-            moonLight.type = LightType.Directional;
-            moonLight.shadows = LightShadows.None;
-            //grab sky material from render settings
-        }
-
-            sky = RenderSettings.skybox = new Material(RenderSettings.skybox);
-
+        SkyMatSetup();
     }
+   void SkyMatSetup()
+    {
+        print("changed skymat");
+        skyBoxMat_Clone =  new Material(skyData.skyBoxMat);
+        RenderSettings.skybox = skyBoxMat_Clone;
+        DynamicGI.UpdateEnvironment();
+    }
+
     public void TimeOfDayBar()
     {
         if (nightLightTime > 0 && dayLightTime > 0 && dayLightTime < 1) nightLightTime = 0;
@@ -106,8 +109,9 @@ public class DayNightCycle : MonoBehaviour {
     // Update is called once per frame
     public void Update () {
         if (DebugGame.instance != null && DebugGame.instance.inDebug) return;
+
         //rotate light 360 over time
-        light.transform.Rotate (new Vector3 ( (Time.deltaTime * speed), 0,0));
+        light.transform.Rotate (new Vector3 ( (Time.deltaTime * skyData.speed), 0,0));
 		//calculate debug
 		Vector3 currentRot = GetYawPitch.GetPitchYawRollDeg (light.transform.rotation  );
 		dayLightTime = Mathf.Clamp01 ( currentRot.x/180);
@@ -116,78 +120,91 @@ public class DayNightCycle : MonoBehaviour {
         ///
         TimeOfDayBar();
 
-        //shuts lights as it goes over the horizon
-        if ( dayLightTime <= 0 || dayLightTime >= 1)
+        //visuals
+        if (active_DayNight)
         {
-            //day to night time========================================= ☽︎
-            if (fadeNight >= 1)
+            //shuts lights as it goes over the horizon
+            if (dayLightTime <= 0 || dayLightTime >= 1)
             {
-                light.enabled = false;
-            }
-            else
-            {
-                light.enabled = true;
-            }
-            light.intensity = Mathf.Lerp(lightIntensity, 0, fadeNight);
+                //day to night time========================================= ☽︎
+                if (fadeNight >= 1)
+                {
+                    light.enabled = false;
+                }
+                else
+                {
+                    light.enabled = true;
+                }
+                light.intensity = Mathf.Lerp(skyData.lightIntensity, 0, fadeNight);
 
-            moonLight.enabled = true;
-            moonLight.intensity = Mathf.Lerp(0, moonLightIntensity, fadeNight);
-        } else {
-            //night to day time=========================================== ☼
-            
-            if (fadeNight <= 0)
-            {
-                moonLight.enabled = false;
-            }
-            else
-            {
                 moonLight.enabled = true;
+                moonLight.intensity = Mathf.Lerp(0, skyData.moonLightIntensity, fadeNight);
             }
-            moonLight.intensity = Mathf.Lerp(0, moonLightIntensity, fadeNight);
+            else
+            {
+                //night to day time=========================================== ☼
 
-            light.enabled = true;
-            light.intensity = Mathf.Lerp(lightIntensity, 0, fadeNight);
+                if (fadeNight <= 0)
+                {
+                    moonLight.enabled = false;
+                }
+                else
+                {
+                    moonLight.enabled = true;
+                }
+                moonLight.intensity = Mathf.Lerp(0, skyData.moonLightIntensity, fadeNight);
 
+                light.enabled = true;
+                light.intensity = Mathf.Lerp(skyData.lightIntensity, 0, fadeNight);
+
+            }
+
+            SkyColor();
+
+            moonLightGo.SetActive(true);
         }
-
-        SkyColor();
+        else
+        {
+            light.enabled = false;
+            moonLight.enabled = false;
+            moonLightGo.SetActive(false);
+        }
         
     }
 
 
     public void Debug()
     {
-
-            light.transform.Rotate(new Vector3(degreesSkip, 0, 0));
+        light.transform.Rotate(new Vector3(degreesSkip, 0, 0));
     }
 
     public void SkyColor()
     {
         SmoothNight();
         //change direcrtional color on light over time
-        light.color = dayColorOverTime.Evaluate(dayLightTime);
-        moonLight.color = nightColorOverTime.Evaluate(nightLightTime);
+        light.color = skyData.dayColorOverTime.Evaluate(dayLightTime);
+        moonLight.color = skyData.nightColorOverTime.Evaluate(nightLightTime);
 
         //sky.SetColor("_SkyColor1", Color.Lerp(dayColorOverTime.Evaluate(dayLightTime), dayFogOverTime.Evaluate(dayLightTime), smoothFadeNight));
         if (dayLightTime > 0)
         {
             if (!useOwnShader)
             {
-                sky.SetColor("_SkyColor1", (dayTopColorOverTime.Evaluate(dayLightTime)));
-                sky.SetColor("_SkyColor2", dayColorOverTime.Evaluate(dayLightTime));
+                RenderSettings.skybox.SetColor("_SkyColor1", (skyData.dayTopColorOverTime.Evaluate(dayLightTime)));
+                RenderSettings.skybox.SetColor("_SkyColor2", skyData.dayColorOverTime.Evaluate(dayLightTime));
             }
 
-            _dayFogOverTime = Color.Lerp(dayFogOverTime.Evaluate(dayLightTime), dayColorOverTime.Evaluate(dayLightTime), fogToDayColor);
+            _dayFogOverTime = Color.Lerp(skyData.dayFogOverTime.Evaluate(dayLightTime), skyData.dayColorOverTime.Evaluate(dayLightTime), skyData.fogToDayColor);
         }
         else
         {
             if (!useOwnShader)
             {
-                sky.SetColor("_SkyColor1", (nightTopColorOverTime.Evaluate(nightLightTime)));
-                sky.SetColor("_SkyColor2", nightColorOverTime.Evaluate(nightLightTime));
+                RenderSettings.skybox.SetColor("_SkyColor1", (skyData.nightTopColorOverTime.Evaluate(nightLightTime)));
+                RenderSettings.skybox.SetColor("_SkyColor2", skyData.nightColorOverTime.Evaluate(nightLightTime));
             }
 
-            _dayFogOverTime = Color.Lerp(dayFogOverTime.Evaluate(dayLightTime), nightColorOverTime.Evaluate(nightLightTime), fogToDayColor);
+            _dayFogOverTime = Color.Lerp(skyData.dayFogOverTime.Evaluate(dayLightTime), skyData.nightColorOverTime.Evaluate(nightLightTime), skyData.fogToDayColor);
         }
 
 
@@ -195,11 +212,11 @@ public class DayNightCycle : MonoBehaviour {
        // RenderSettings.ambientLight = _dayFogOverTime/3;
         if (!useOwnShader)
         {
-            sky.SetColor("_SkyColor3", _dayFogOverTime);
+            RenderSettings.skybox.SetColor("_SkyColor3", _dayFogOverTime);
 
             //nightsky
-            sky.SetFloat("_NightOpacity", smoothFadeNight);
-            sky.SetFloat("_SunScale", sunSizeOverTime.Evaluate(dayLightTime));
+            RenderSettings.skybox.SetFloat("_NightOpacity", smoothFadeNight);
+            RenderSettings.skybox.SetFloat("_SunScale", skyData.sunSizeOverTime.Evaluate(dayLightTime));
         }
 
     }

@@ -93,7 +93,7 @@ Material:
     - _SrcBlend: 1
     - _SunDisk: 2
     - _SunIntensity: 10.55
-    - _SunScale: 0.96157444
+    - _SunScale: 0.9770339
     - _SunSize: 0.09849851
     - _SunSizeConvergence: 5
     - _UVSec: 0
@@ -104,8 +104,9 @@ Material:
     - _GroundColor: {r: 0.36899996, g: 0.34899998, b: 0.34099993, a: 1}
     - _MoonColor: {r: 1, g: 1, b: 1, a: 1}
     - _MoonVector: {r: 0.269, g: 0.615, b: 0.74, a: 0}
-    - _SkyColor1: {r: 0.44598988, g: 0.95830125, b: 1, a: 1}
-    - _SkyColor2: {r: 1, g: 0.9981659, b: 0.94042295, a: 1}
-    - _SkyColor3: {r: 1, g: 0.9981659, b: 0.94042295, a: 1}
+    - _SkyColor1: {r: 0.7127882, g: 0.99374616, b: 1, a: 1}
+    - _SkyColor2: {r: 0.9929296, g: 0.86214775, b: 0.76395345, a: 1}
+    - _SkyColor3: {r: 0.9929296, g: 0.86214775, b: 0.76395345, a: 1}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SunColor: {r: 1, g: 0.98999995, b: 0.87, a: 1}
+  m_BuildTextureStacks: []
