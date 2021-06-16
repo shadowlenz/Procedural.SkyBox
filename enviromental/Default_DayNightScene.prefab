@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1834542499200062356}
   - component: {fileID: 1834542499200062357}
   m_Layer: 0
-  m_Name: DayNightScene
+  m_Name: Default_DayNightScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,9 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079053d4d5fafd64abaf3970eb1a214a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayNightCycleMaster: {fileID: 114635619964397720, guid: f4f8316d63760424aa335dcc4ed8215c,
+  dayNightCycleManager: {fileID: 114635619964397720, guid: f4f8316d63760424aa335dcc4ed8215c,
     type: 3}
   activeDayNight: 1
+  canOverrideTime: 0
+  overrideTime: 0
   SkyData:
     skyBoxMat: {fileID: 2100000, guid: 4acd1f3c31aeb974485d67342daf2c24, type: 2}
     lightIntensity: 1.3
