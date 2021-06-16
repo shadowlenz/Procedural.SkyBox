@@ -294,16 +294,16 @@ MonoBehaviour:
       m_NumAlphaKeys: 2
     fogToDayColor: 1
   degreesSkip: 45
-  timeOfDay: 0.49441066
-  dayLightTime: 0.9888213
+  timeOfDay: 0.13379338
+  dayLightTime: 0.26758677
   nightLightTime: 0
   moonLightGo: {fileID: 1494576992045022}
   moonLight: {fileID: 108805550256824310}
   fadeNight: 0
   smoothFadeNight: 0
-  _topColor: _SkyColor1
-  _midColor: _SkyColor2
-  _bottomColor: _SkyColor3
+  _topColor: _top
+  _midColor: _horizon
+  _bottomColor: _ground
   _nightOpacity: _NightOpacity
   _sunScale: _SunScale
 --- !u!1 &1494576992045022
