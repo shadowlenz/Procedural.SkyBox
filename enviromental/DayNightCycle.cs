@@ -13,8 +13,6 @@ public class DayNightCycle : MonoBehaviour {
 
     public bool active_DayNight = true;
 
-    Material skyBoxMat_Clone;
-
     public Light light;
 
     Color _dayFogOverTime;
@@ -84,26 +82,23 @@ public class DayNightCycle : MonoBehaviour {
         RenderSettings.sun = light;
         if (moonLightGo == null) moonLightGo.transform.Rotate(180, 0, 0);
 
-        SkyMatSetup();
-    }
-   void SkyMatSetup()
-    {
         print("changed skymat");
-        skyBoxMat_Clone =  new Material(skyData.skyBoxMat);
-        RenderSettings.skybox = skyBoxMat_Clone;
+        if (Application.isPlaying)
+        {
+            Material ClonedMat = Instantiate(skyData.skyBoxMat);//new Material(skyData.skyBoxMat);
+            RenderSettings.skybox = ClonedMat;
+        }
+        else
+        { 
+            RenderSettings.skybox = skyData.skyBoxMat; 
+        }
+
         DynamicGI.UpdateEnvironment();
     }
 
-    public void TimeOfDayBar()
-    {
-        if (nightLightTime > 0 && dayLightTime > 0 && dayLightTime < 1) nightLightTime = 0;
-        float isNight = 0;
-        if (nightLightTime > 0) isNight = 1;
-        timeOfDay = (dayLightTime + nightLightTime + isNight) / 2;
-    }
     public void ChangeTimeTo(float range)
     {
-        light.transform.localEulerAngles =new Vector3(range*360, 0, 0);
+        timeOfDay = range;
     }
 
     // Update is called once per frame
@@ -112,17 +107,33 @@ public class DayNightCycle : MonoBehaviour {
 
         UpdateSky();
     }
+    public void TimeOfDayBar()
+    {
+        if (timeOfDay >= 1) timeOfDay = timeOfDay - 1;
+        else if (timeOfDay <= 0) timeOfDay = timeOfDay + 1;
+        if (Application.isPlaying) timeOfDay += Time.deltaTime * (skyData.speed / 360);
+
+        //day night cal split
+        if (timeOfDay < 0.5f)
+        {
+            dayLightTime = timeOfDay * 2;
+            nightLightTime = 0;
+        }
+        else
+        {
+            nightLightTime = (timeOfDay * 2) - 1;
+            dayLightTime = 0;
+        }
+    }
+
+    Vector3 SunRot = Vector3.zero;
     public void UpdateSky()
     {
-        //rotate light 360 over time
-        light.transform.Rotate(new Vector3((Time.deltaTime * skyData.speed), 0, 0));
-        //calculate debug
-        Vector3 currentRot = GetYawPitch.GetPitchYawRollDeg(light.transform.rotation);
-        dayLightTime = Mathf.Clamp01(currentRot.x / 180);
-        float _nightLightTime = Mathf.Clamp01(-currentRot.x / 180);
-        nightLightTime = Mathf.Lerp(1, 0, _nightLightTime);
-        ///
         TimeOfDayBar();
+
+        //rotate transform
+        SunRot.x = timeOfDay * 360;
+        light.transform.localEulerAngles = SunRot;
 
         //visuals
         if (active_DayNight)
@@ -176,11 +187,6 @@ public class DayNightCycle : MonoBehaviour {
     }
 
 
-    public void Debug()
-    {
-        light.transform.Rotate(new Vector3(degreesSkip, 0, 0));
-    }
-
     [Header("mat properties")]
     public string _topColor = "_SkyColor1";
     public string _midColor = "_SkyColor2";
@@ -221,7 +227,7 @@ public class DayNightCycle : MonoBehaviour {
 
         //nightsky
         if (RenderSettings.skybox.HasProperty(_nightOpacity)) RenderSettings.skybox.SetFloat(_nightOpacity, smoothFadeNight);
-        if (RenderSettings.skybox.HasProperty(_sunScale)) RenderSettings.skybox.SetFloat(_sunScale, skyData.sunSizeOverTime.Evaluate(dayLightTime));
+        if (RenderSettings.skybox.HasProperty(_sunScale)) RenderSettings.skybox.SetFloat(_sunScale, skyData.sunSizeOverTime.Evaluate(timeOfDay));
 
     }
     public void SmoothNight()

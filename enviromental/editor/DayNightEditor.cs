@@ -13,20 +13,23 @@ using UnityEditor.SceneManagement;
 [CustomEditor(typeof(DayNightCycle))]
 public class DayNightEditor : Editor
 {
-    Vector3 oldVec = Vector3.one;
-    Vector3 newVec = Vector3.zero;
     public Material skyMat;
 
     static float time;
+
+    private void OnEnable()
+    {
+         DayNightCycle _target = (DayNightCycle)target;
+        _target.UpdateSky();
+    }
     public override void OnInspectorGUI()
     {
         DayNightCycle _target = (DayNightCycle)target;
 
-        Debug.Log(StageUtility.GetMainStage());
         if (!_target.gameObject.scene.IsValid() || StageUtility.GetMainStage() == null) return;
 
 
-        if ( RenderSettings.skybox == null )
+        if ( RenderSettings.skybox == null || RenderSettings.skybox.shader != _target.skyData.skyBoxMat.shader)
 
         {
             GUI.color = new Color(1, 0.5f, 0.5f);
@@ -37,7 +40,7 @@ public class DayNightEditor : Editor
                     if (RenderSettings.skybox == null) RenderSettings.skybox = skyMat;
                     else
                     {
-                        Shader _shader = Shader.Find("Skybox/ProceduralGradient");
+                        Shader _shader = Shader.Find(_target.skyData.skyBoxMat.shader.name);
                         //Shader _shader = Shader.Find("Skybox/Skybox-Procedural");
                         RenderSettings.skybox.shader = _shader;
                     }
@@ -88,10 +91,6 @@ public class DayNightEditor : Editor
         /////////
         DrawDefaultInspector();
 
-        if (GUILayout.Button("Skip Time"))
-        {
-            _target.Debug();
-        }
 
         EditorGUI.BeginChangeCheck();
         time = (GUILayout.HorizontalSlider(time, 0, 1));
@@ -136,32 +135,27 @@ public class DayNightEditor : Editor
     protected virtual void OnSceneGUI()
     {
         DayNightCycle _target = (DayNightCycle)target;
-        EditorGUI.BeginChangeCheck();
 
-        if (_target.light == null || _target.moonLightGo == null || _target.moonLight == null)
+        if (!_target.gameObject.scene.IsValid() || StageUtility.GetMainStage() == null) return;
+        if (_target.light == null  || Camera.current == null)
         {
             return;
         }
 
 
-            if (Event.current.type == EventType.Repaint)
-            {
-                Transform transform = _target.transform;
+        if (Event.current.type == EventType.Repaint)
+        {
+            Handles.color = _target.light.color;
+            Handles.ArrowHandleCap(
+                0,
+                _target.light.transform.position + _target.light.transform.forward ,
+                _target.light.transform.rotation,
+                    Vector3.Distance(Camera.current.transform.position, _target.transform.position) / 5,
+                EventType.Repaint
+                );
 
-                Handles.color = _target.light.color;
-                Handles.ArrowHandleCap(
-                    0,
-                    transform.position + transform.forward * 3,
-                    transform.rotation,
-                     Vector3.Distance(Camera.current.transform.position, _target.transform.position) / 5,
-                    EventType.Repaint
-                    );
-
-            }
-       
-        EditorGUI.EndChangeCheck();
+        }
     }
-
 
 
 }
