@@ -117,7 +117,10 @@ public class DayNightCycle : MonoBehaviour {
         if (timeOfDay < 0.5f)
         {
             dayLightTime = timeOfDay * 2;
-            nightLightTime = 0;
+
+            // cause both dayLightTime & nightLightTime are at 0
+            if (dayLightTime == 0) nightLightTime = 1;
+            else nightLightTime = 0;
         }
         else
         {
