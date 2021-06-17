@@ -13,9 +13,11 @@ public class DayNightCycle : MonoBehaviour {
 
     public bool active_DayNight = true;
 
-    public Light light;
+    public Light sunLight;
+    public Light moonLight;
+    public GameObject moonLightGo;
 
-    Color _dayFogOverTime;
+
 
     [System.Serializable]
     public struct SkyData
@@ -40,18 +42,15 @@ public class DayNightCycle : MonoBehaviour {
     }
     public SkyData skyData = new SkyData();
 
-    [Header("debug")]
-    public float degreesSkip = 45;
 
-    [Range(0, 1)]
-    public float timeOfDay = 0;
+    [Header("debug")]
     [Range (0,1)]
 	public float dayLightTime;
 	[Range (0,1)]
 	public float nightLightTime;
-
-    public GameObject moonLightGo;
-    public Light moonLight;
+    [Space]
+    [Range(0, 1)]
+    public float timeOfDay = 0;
 
     [HideInInspector()]
     [Range(0, 1)]
@@ -79,7 +78,7 @@ public class DayNightCycle : MonoBehaviour {
 
     public void Setup()
     {
-        RenderSettings.sun = light;
+        RenderSettings.sun = sunLight;
         if (moonLightGo == null) moonLightGo.transform.Rotate(180, 0, 0);
 
         print("changed skymat");
@@ -109,9 +108,10 @@ public class DayNightCycle : MonoBehaviour {
     }
     public void TimeOfDayBar()
     {
-        if (timeOfDay >= 1) timeOfDay = timeOfDay - 1;
-        else if (timeOfDay <= 0) timeOfDay = timeOfDay + 1;
         if (Application.isPlaying) timeOfDay += Time.deltaTime * (skyData.speed / 360);
+        //repeat
+        if (timeOfDay > 1) timeOfDay = timeOfDay - 1;
+        else if (timeOfDay < 0) timeOfDay = timeOfDay + 1;
 
         //day night cal split
         if (timeOfDay < 0.5f)
@@ -133,7 +133,7 @@ public class DayNightCycle : MonoBehaviour {
 
         //rotate transform
         SunRot.x = timeOfDay * 360;
-        light.transform.localEulerAngles = SunRot;
+        sunLight.transform.localEulerAngles = SunRot;
 
         //visuals
         if (active_DayNight)
@@ -144,13 +144,13 @@ public class DayNightCycle : MonoBehaviour {
                 //day to night time========================================= ☽︎
                 if (fadeNight >= 1)
                 {
-                    light.enabled = false;
+                    sunLight.enabled = false;
                 }
                 else
                 {
-                    light.enabled = true;
+                    sunLight.enabled = true;
                 }
-                light.intensity = Mathf.Lerp(skyData.lightIntensity, 0, fadeNight);
+                sunLight.intensity = Mathf.Lerp(skyData.lightIntensity, 0, fadeNight);
 
                 moonLight.enabled = true;
                 moonLight.intensity = Mathf.Lerp(0, skyData.moonLightIntensity, fadeNight);
@@ -169,8 +169,8 @@ public class DayNightCycle : MonoBehaviour {
                 }
                 moonLight.intensity = Mathf.Lerp(0, skyData.moonLightIntensity, fadeNight);
 
-                light.enabled = true;
-                light.intensity = Mathf.Lerp(skyData.lightIntensity, 0, fadeNight);
+                sunLight.enabled = true;
+                sunLight.intensity = Mathf.Lerp(skyData.lightIntensity, 0, fadeNight);
 
             }
 
@@ -180,7 +180,7 @@ public class DayNightCycle : MonoBehaviour {
         }
         else
         {
-            light.enabled = false;
+            sunLight.enabled = false;
             moonLight.enabled = false;
             moonLightGo.SetActive(false);
         }
@@ -197,8 +197,9 @@ public class DayNightCycle : MonoBehaviour {
     {
         SmoothNight();
         //change direcrtional color on light over time
-        light.color = skyData.dayColorOverTime.Evaluate(dayLightTime);
+        sunLight.color = skyData.dayColorOverTime.Evaluate(dayLightTime);
         moonLight.color = skyData.nightColorOverTime.Evaluate(nightLightTime);
+        Color _dayFogOverTime;
 
         if (dayLightTime > 0)
         {

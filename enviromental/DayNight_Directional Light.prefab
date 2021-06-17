@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active_DayNight: 1
-  light: {fileID: 2666243911537261980}
+  sunLight: {fileID: 2666243911537261980}
+  moonLight: {fileID: 7333559657870615801}
+  moonLightGo: {fileID: 4741726245099946957}
   skyData:
     skyBoxMat: {fileID: 2100000, guid: 4a0e45b5ff893b541a2a29c8073ae471, type: 2}
     lightIntensity: 1.3
@@ -230,12 +232,9 @@ MonoBehaviour:
       m_NumColorKeys: 5
       m_NumAlphaKeys: 2
     fogToDayColor: 1
-  degreesSkip: 45
-  timeOfDay: 0.13362068
   dayLightTime: 0.26724136
   nightLightTime: 0
-  moonLightGo: {fileID: 4741726245099946957}
-  moonLight: {fileID: 7333559657870615801}
+  timeOfDay: 0.13362068
   fadeNight: 0
   smoothFadeNight: 0
   _topColor: _top
@@ -364,7 +363,7 @@ Transform:
   m_GameObject: {fileID: 6690672441375799754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1000}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 30, y: 30, z: 30}
   m_Children: []
   m_Father: {fileID: 812817300705176814}
   m_RootOrder: 0

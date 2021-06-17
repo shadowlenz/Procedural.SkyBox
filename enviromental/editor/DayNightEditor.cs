@@ -37,14 +37,14 @@ public class DayNightEditor : Editor
             {
 
 
-                    if (RenderSettings.skybox == null) RenderSettings.skybox = skyMat;
-                    else
-                    {
-                        Shader _shader = Shader.Find(_target.skyData.skyBoxMat.shader.name);
-                        //Shader _shader = Shader.Find("Skybox/Skybox-Procedural");
-                        RenderSettings.skybox.shader = _shader;
-                    }
-                
+                if (RenderSettings.skybox == null) RenderSettings.skybox = skyMat;
+                else
+                {
+                    Shader _shader = Shader.Find(_target.skyData.skyBoxMat.shader.name);
+                    //Shader _shader = Shader.Find("Skybox/Skybox-Procedural");
+                    RenderSettings.skybox.shader = _shader;
+                }
+                RenderSettings.sun = _target.sunLight;
 
                 _target.Setup();
             }
@@ -54,90 +54,87 @@ public class DayNightEditor : Editor
         }
 
         ///====================================================
-        ///
 
-
-        if (_target.nightLightTime > 0 && _target.nightLightTime < 1)
-        {
-            if (_target.nightLightTime > 0 && _target.nightLightTime < 0.5f)
-            {
-                GUILayout.Label("night", EditorStyles.boldLabel);
-            }
-            else if (_target.nightLightTime >= 0.5f && _target.nightLightTime < 0.8f)
-            {
-                GUILayout.Label("Late night", EditorStyles.boldLabel);
-            }
-            else
-            {
-                GUILayout.Label("Dawn", EditorStyles.boldLabel);
-            }
-        }
-        else
-        {
-            if (_target.dayLightTime >= 0 && _target.dayLightTime < 0.3f)
-            {
-                GUILayout.Label("Morning", EditorStyles.boldLabel);
-            }
-            else if (_target.dayLightTime >= 0.3f && _target.dayLightTime < 0.7f)
-            {
-                GUILayout.Label("Noon", EditorStyles.boldLabel);
-            }
-            else if (_target.dayLightTime >= 0.7f && _target.dayLightTime <= 1)
-            {
-                GUILayout.Label("Evening", EditorStyles.boldLabel);
-            }
-        }
-
-        /////////
         DrawDefaultInspector();
+        GUILayout.Space(20);
 
+        GUILayout.BeginVertical(EditorStyles.helpBox);
+        GUILayout.Label(GetTimeLabel() ,EditorStyles.boldLabel);
 
-        EditorGUI.BeginChangeCheck();
-        time = (GUILayout.HorizontalSlider(time, 0, 1));
+        SerializedProperty m_timeOfDay = serializedObject.FindProperty(nameof(DayNightCycle.timeOfDay));
+        EditorGUILayout.PropertyField(m_timeOfDay, new GUIContent(""));
+        serializedObject.ApplyModifiedProperties();
 
-        if (EditorGUI.EndChangeCheck())
-        {
-            Undo.RecordObject(_target, "tweak time");
-            if (_target.light != null) Undo.RecordObject(_target.light, "tweak time");
-            if (_target.moonLight != null) Undo.RecordObject(_target.moonLight, "tweak time");
-
-            _target.ChangeTimeTo(time);
-            _target.UpdateSky();
-
-        }
-        else
-        {
-            time = _target.timeOfDay;
-        }
+        GUILayout.EndVertical();
 
 
         GUILayout.Space(50);
 
-        if (_target.light != null && _target.moonLightGo != null && _target.moonLight != null && !Application.isPlaying)
+        if (_target.sunLight != null && _target.moonLightGo != null && _target.moonLight != null && !Application.isPlaying)
         {
 
-            if (_target.transform.hasChanged)
+            if (GUI.changed)
             {
-                if (GUI.changed)
-                {
-                    //_target.SkyColor();
-                    _target.UpdateSky();
+                Undo.RecordObject(_target, "tweak time");
+                if (_target.sunLight != null) Undo.RecordObject(_target.sunLight, "tweak time");
+                if (_target.moonLight != null) Undo.RecordObject(_target.moonLight, "tweak time");
 
-                    GUI.changed = false;
-                }
 
+                _target.UpdateSky();
+
+                    
+
+                GUI.changed = false;
             }
 
         }
 
      }
 
+    string GetTimeLabel()
+    {
+        DayNightCycle _target = (DayNightCycle)target;
+
+        string LabelReturn = string.Empty;
+        if (_target.nightLightTime > 0 && _target.nightLightTime < 1)
+        {
+            if (_target.nightLightTime > 0 && _target.nightLightTime < 0.5f)
+            {
+                LabelReturn = "night";
+            }
+            else if (_target.nightLightTime >= 0.5f && _target.nightLightTime < 0.8f)
+            {
+                LabelReturn = "Late night";
+            }
+            else
+            {
+                LabelReturn = "Dawn";
+            }
+        }
+        else
+        {
+            if (_target.dayLightTime >= 0 && _target.dayLightTime < 0.3f)
+            {
+                LabelReturn = "Morning";
+            }
+            else if (_target.dayLightTime >= 0.3f && _target.dayLightTime < 0.7f)
+            {
+                LabelReturn = "Noon";
+            }
+            else if (_target.dayLightTime >= 0.7f && _target.dayLightTime <= 1)
+            {
+                LabelReturn = "Evening";
+            }
+        }
+        return LabelReturn;
+    }
+
     protected virtual void OnSceneGUI()
     {
         DayNightCycle _target = (DayNightCycle)target;
 
         if (!_target.gameObject.scene.IsValid() || StageUtility.GetMainStage() == null) return;
-        if (_target.light == null  || Camera.current == null)
+        if (_target.sunLight == null  || Camera.current == null)
         {
             return;
         }
@@ -145,11 +142,11 @@ public class DayNightEditor : Editor
 
         if (Event.current.type == EventType.Repaint)
         {
-            Handles.color = _target.light.color;
+            Handles.color = _target.sunLight.color;
             Handles.ArrowHandleCap(
                 0,
-                _target.light.transform.position + _target.light.transform.forward ,
-                _target.light.transform.rotation,
+                _target.sunLight.transform.position + _target.sunLight.transform.forward ,
+                _target.sunLight.transform.rotation,
                     Vector3.Distance(Camera.current.transform.position, _target.transform.position) / 5,
                 EventType.Repaint
                 );
