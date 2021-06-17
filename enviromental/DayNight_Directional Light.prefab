@@ -48,6 +48,7 @@ MonoBehaviour:
   sunLight: {fileID: 2666243911537261980}
   moonLight: {fileID: 7333559657870615801}
   moonLightGo: {fileID: 4741726245099946957}
+  smoothLerp: 1
   skyData:
     skyBoxMat: {fileID: 2100000, guid: 4a0e45b5ff893b541a2a29c8073ae471, type: 2}
     lightIntensity: 1.3
@@ -66,14 +67,14 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.51171124
-        value: 4
-        inSlope: 4.334388
-        outSlope: 4.334388
+        time: 0.5
+        value: 3
+        inSlope: 0.9717732
+        outSlope: 0.9717732
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.03989595
-        outWeight: 0
+        outWeight: 0.077934146
       - serializedVersion: 3
         time: 1
         value: 2.5
@@ -115,7 +116,7 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 4
       m_NumAlphaKeys: 2
-    dayColorOverTime:
+    dayMidColorOverTime:
       serializedVersion: 2
       key0: {r: 1, g: 0.643424, b: 0.5990566, a: 1}
       key1: {r: 1, g: 0.9993885, b: 0.9669811, a: 1}
@@ -173,7 +174,7 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 6
       m_NumAlphaKeys: 2
-    nightColorOverTime:
+    nightMidColorOverTime:
       serializedVersion: 2
       key0: {r: 1, g: 0.6745098, b: 0.5686275, a: 1}
       key1: {r: 0.43921572, g: 0.48235297, b: 0.654902, a: 1}
@@ -232,10 +233,10 @@ MonoBehaviour:
       m_NumColorKeys: 5
       m_NumAlphaKeys: 2
     fogToDayColor: 1
-  dayLightTime: 0.256
+  dayLightTime: 0.704
   nightLightTime: 0
-  timeOfDay: 0.128
-  fadeNight: 0
+  timeOfDay: 0.352
+  fadeToNight: 0
   smoothFadeNight: 0
   _topColor: _top
   _midColor: _horizon
@@ -285,7 +286,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.6745098, b: 0.5686275, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
@@ -458,7 +459,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7577105031753055366}
-  m_LocalRotation: {x: 0.3913737, y: 0, z: 0, w: 0.9202319}
+  m_LocalRotation: {x: 0.6330727, y: -0, z: -0, w: 0.7740923}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -477,7 +478,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9993094, b: 0.9652635, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.3
   m_Range: 10
   m_SpotAngle: 30

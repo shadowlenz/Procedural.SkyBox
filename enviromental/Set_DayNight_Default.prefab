@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1834542499200062356}
   - component: {fileID: 1834542499200062357}
   m_Layer: 0
-  m_Name: Default_DayNightScene
+  m_Name: Set_DayNight_Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 3
+        value: 2.5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -66,17 +66,17 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5351258
-        value: 2
-        inSlope: 0
-        outSlope: 0
+        time: 0.5
+        value: 3
+        inSlope: 0.9717732
+        outSlope: 0.9717732
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0.03989595
+        outWeight: 0.077934146
       - serializedVersion: 3
         time: 1
-        value: 3
+        value: 2.5
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 4
       m_NumAlphaKeys: 2
-    dayColorOverTime:
+    dayMidColorOverTime:
       serializedVersion: 2
       key0: {r: 1, g: 0.643424, b: 0.5990566, a: 1}
       key1: {r: 1, g: 0.9993885, b: 0.9669811, a: 1}
@@ -173,7 +173,7 @@ MonoBehaviour:
       m_Mode: 0
       m_NumColorKeys: 6
       m_NumAlphaKeys: 2
-    nightColorOverTime:
+    nightMidColorOverTime:
       serializedVersion: 2
       key0: {r: 1, g: 0.6745098, b: 0.5686275, a: 1}
       key1: {r: 0.43921572, g: 0.48235297, b: 0.654902, a: 1}
