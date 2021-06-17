@@ -232,9 +232,9 @@ MonoBehaviour:
       m_NumColorKeys: 5
       m_NumAlphaKeys: 2
     fogToDayColor: 1
-  dayLightTime: 0.26724136
+  dayLightTime: 0.256
   nightLightTime: 0
-  timeOfDay: 0.13362068
+  timeOfDay: 0.128
   fadeNight: 0
   smoothFadeNight: 0
   _topColor: _top
@@ -458,7 +458,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7577105031753055366}
-  m_LocalRotation: {x: 0.40756112, y: 0, z: 0, w: 0.9131779}
+  m_LocalRotation: {x: 0.3913737, y: 0, z: 0, w: 0.9202319}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -477,7 +477,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9992665, b: 0.964331, a: 1}
+  m_Color: {r: 1, g: 0.9993094, b: 0.9652635, a: 1}
   m_Intensity: 1.3
   m_Range: 10
   m_SpotAngle: 30

@@ -114,7 +114,7 @@ Material:
     - _groundPow: 15.67
     - _offSet: 0
     - _sunFade: 0.18
-    - _sunRadius: 2.6416798
+    - _sunRadius: 2.6305487
     - _useCubeMap: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -127,7 +127,7 @@ Material:
     - _SkyColor3: {r: 1, g: 0.9984524, b: 0.94664717, a: 1}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SunColor: {r: 1, g: 0.98999995, b: 0.87, a: 1}
-    - _ground: {r: 1, g: 0.9992665, b: 0.964331, a: 1}
-    - _horizon: {r: 1, g: 0.9992665, b: 0.964331, a: 1}
-    - _top: {r: 0.2604043, g: 0.72484374, b: 0.82784927, a: 1}
+    - _ground: {r: 1, g: 0.9993094, b: 0.9652635, a: 1}
+    - _horizon: {r: 1, g: 0.9993094, b: 0.9652635, a: 1}
+    - _top: {r: 0.25619075, g: 0.7138021, b: 0.8192073, a: 1}
   m_BuildTextureStacks: []

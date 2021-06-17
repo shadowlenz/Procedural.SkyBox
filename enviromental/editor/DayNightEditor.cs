@@ -15,42 +15,48 @@ public class DayNightEditor : Editor
 {
     public Material skyMat;
 
-    static float time;
-
     private void OnEnable()
     {
-         DayNightCycle _target = (DayNightCycle)target;
-        _target.UpdateSky();
+        DayNightCycle _target = (DayNightCycle)target;
+
+        bool InMainStage = StageUtility.GetCurrentStage() == StageUtility.GetMainStage() && _target.gameObject.scene.IsValid();
+        if (InMainStage)
+        {
+            _target.UpdateSky();
+        }
     }
     public override void OnInspectorGUI()
     {
         DayNightCycle _target = (DayNightCycle)target;
 
+        bool InMainStage = StageUtility.GetCurrentStage() == StageUtility.GetMainStage();
         if (!_target.gameObject.scene.IsValid() || StageUtility.GetMainStage() == null) return;
 
-
-        if ( RenderSettings.skybox == null || RenderSettings.skybox.shader != _target.skyData.skyBoxMat.shader)
-
+        if (InMainStage)
         {
-            GUI.color = new Color(1, 0.5f, 0.5f);
-            if (!Application.isPlaying && GUILayout.Button("Setup"))
+            if (RenderSettings.skybox == null || RenderSettings.skybox.shader != _target.skyData.skyBoxMat.shader)
+
             {
-
-
-                if (RenderSettings.skybox == null) RenderSettings.skybox = skyMat;
-                else
+                GUI.color = new Color(1, 0.5f, 0.5f);
+                if (!Application.isPlaying && GUILayout.Button("Setup"))
                 {
-                    Shader _shader = Shader.Find(_target.skyData.skyBoxMat.shader.name);
-                    //Shader _shader = Shader.Find("Skybox/Skybox-Procedural");
-                    RenderSettings.skybox.shader = _shader;
+
+
+                    if (RenderSettings.skybox == null) RenderSettings.skybox = skyMat;
+                    else
+                    {
+                        Shader _shader = Shader.Find(_target.skyData.skyBoxMat.shader.name);
+                        //Shader _shader = Shader.Find("Skybox/Skybox-Procedural");
+                        RenderSettings.skybox.shader = _shader;
+                    }
+                    RenderSettings.sun = _target.sunLight;
+
+                    _target.Setup();
                 }
-                RenderSettings.sun = _target.sunLight;
 
-                _target.Setup();
+
+                return;
             }
-
-
-            return;
         }
 
         ///====================================================
@@ -59,7 +65,7 @@ public class DayNightEditor : Editor
         GUILayout.Space(20);
 
         GUILayout.BeginVertical(EditorStyles.helpBox);
-        GUILayout.Label(GetTimeLabel() ,EditorStyles.boldLabel);
+        GUILayout.Label(GetTimeLabel(), EditorStyles.boldLabel);
 
         SerializedProperty m_timeOfDay = serializedObject.FindProperty(nameof(DayNightCycle.timeOfDay));
         EditorGUILayout.PropertyField(m_timeOfDay, new GUIContent(""));
@@ -82,14 +88,14 @@ public class DayNightEditor : Editor
 
                 _target.UpdateSky();
 
-                    
+
 
                 GUI.changed = false;
             }
 
         }
 
-     }
+    }
 
     string GetTimeLabel()
     {
@@ -134,7 +140,7 @@ public class DayNightEditor : Editor
         DayNightCycle _target = (DayNightCycle)target;
 
         if (!_target.gameObject.scene.IsValid() || StageUtility.GetMainStage() == null) return;
-        if (_target.sunLight == null  || Camera.current == null)
+        if (_target.sunLight == null || Camera.current == null)
         {
             return;
         }
@@ -145,7 +151,7 @@ public class DayNightEditor : Editor
             Handles.color = _target.sunLight.color;
             Handles.ArrowHandleCap(
                 0,
-                _target.sunLight.transform.position + _target.sunLight.transform.forward ,
+                _target.sunLight.transform.position + _target.sunLight.transform.forward,
                 _target.sunLight.transform.rotation,
                     Vector3.Distance(Camera.current.transform.position, _target.transform.position) / 5,
                 EventType.Repaint

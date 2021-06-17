@@ -131,6 +131,7 @@ public class DayNightCycle : MonoBehaviour {
     {
         TimeOfDayBar();
 
+        if (RenderSettings.sun == null) RenderSettings.sun = sunLight;
         //rotate transform
         SunRot.x = timeOfDay * 360;
         sunLight.transform.localEulerAngles = SunRot;
