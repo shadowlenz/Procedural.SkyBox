@@ -17,9 +17,10 @@ public class DayNightCycle : MonoBehaviour {
     public Light moonLight;
     public GameObject moonLightGo;
 
-    [Range(0,1)]
+    [Range(0,10)]
     public float smoothLerp =0.5f;
-    public float GetSmoothLerp { get { if (Application.isPlaying || smoothLerp <= 0) return smoothLerp *Time.deltaTime; else return 1; } }
+    public bool useSmoothLerp = true;
+    public float GetSmoothLerp { get { if (Application.isPlaying && useSmoothLerp) return smoothLerp *Time.unscaledDeltaTime; else return 1; } }
 
     [System.Serializable]
     public struct SkyData
@@ -111,16 +112,17 @@ public class DayNightCycle : MonoBehaviour {
 
     // Update is called once per frame
     public void Update () {
-        if (Application.isPlaying && DebugGame.instance != null && DebugGame.instance.inDebug) return;
 
         UpdateSky();
     }
     public void TimeOfDayBar()
     {
-        if (Application.isPlaying)
+        //can move time
+        if (Application.isPlaying && GameGlobal.instance != null && !GameGlobal.instance.isPaused)
         {
-            timeOfDay += Time.deltaTime * (skyData.speed / 360);
+            timeOfDay += Time.unscaledDeltaTime * (skyData.speed / 360);
         }
+
         //repeat
         if (timeOfDay > 1) timeOfDay = timeOfDay - 1;
         else if (timeOfDay < 0) timeOfDay = timeOfDay + 1;
@@ -164,7 +166,7 @@ public class DayNightCycle : MonoBehaviour {
             sunLight.intensity = L_SunLightIntensity;
 
             //fade moon light
-            bool AtNight = (fadeToNight > 1);
+            bool AtNight = (fadeToNight >= 1);
             moonLight.enabled = AtNight;
 
             float L_MoonLightIntensity = Mathf.Lerp(moonLight.intensity, skyData.moonLightIntensity, GetSmoothLerp) * _fadeIntensity;
