@@ -34,28 +34,29 @@ public class DayNightEditor : Editor
 
         if (InMainStage)
         {
-            if (RenderSettings.skybox == null || RenderSettings.skybox.shader != _target.skyData.skyBoxMat.shader)
+            if (!Application.isPlaying && (RenderSettings.skybox == null || RenderSettings.skybox != _target.skyData.skyBoxMat))
 
             {
                 GUI.color = new Color(1, 0.5f, 0.5f);
-                if (!Application.isPlaying && GUILayout.Button("Setup"))
+                if (GUILayout.Button("Setup"))
                 {
-
-
-                    if (RenderSettings.skybox == null) RenderSettings.skybox = skyMat;
+                    if (_target.skyData.skyBoxMat != null) RenderSettings.skybox = _target.skyData.skyBoxMat;
                     else
                     {
-                        Shader _shader = Shader.Find(_target.skyData.skyBoxMat.shader.name);
-                        //Shader _shader = Shader.Find("Skybox/Skybox-Procedural");
-                        RenderSettings.skybox.shader = _shader;
+                        RenderSettings.skybox = skyMat;
+
+                        SerializedProperty P_skydata = serializedObject.FindProperty(nameof(_target.skyData));
+                        SerializedProperty P_skydata_skyMat = P_skydata.FindPropertyRelative(nameof(_target.skyData.skyBoxMat));
+                        P_skydata_skyMat.objectReferenceValue = skyMat;
+
+                        serializedObject.ApplyModifiedProperties();
                     }
+
                     RenderSettings.sun = _target.sunLight;
 
                     _target.Setup();
                 }
-
-
-                return;
+                GUI.color = Color.white;
             }
         }
 
