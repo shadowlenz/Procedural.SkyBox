@@ -17,9 +17,10 @@ public class DayNightCycle : MonoBehaviour {
     public Light moonLight;
     public GameObject moonLightGo;
 
+    [Space()]
+    public bool useSmoothLerp = true;
     [Range(0,10)]
     public float smoothLerp =0.5f;
-    public bool useSmoothLerp = true;
     public float GetSmoothLerp { get { if (Application.isPlaying && useSmoothLerp) return smoothLerp *Time.unscaledDeltaTime; else return 1; } }
 
     [System.Serializable]
