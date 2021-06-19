@@ -167,7 +167,7 @@ public class DayNightCycle : MonoBehaviour {
             sunLight.intensity = L_SunLightIntensity;
 
             //fade moon light
-            bool AtNight = (fadeToNight >= 1);
+            bool AtNight = (fadeToNight >0);
             moonLight.enabled = AtNight;
 
             float L_MoonLightIntensity = Mathf.Lerp(moonLight.intensity, skyData.moonLightIntensity, GetSmoothLerp) * _fadeIntensity;
