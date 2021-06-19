@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 [CustomEditor(typeof(SetDayNightCycle))]
 public class SetDayNightCycleEditor : Editor
 {
@@ -43,6 +44,8 @@ public class SetDayNightCycleEditor : Editor
                     DayNightCycle = _spawnedDayNight;
 
                     RefreshDayNight();
+
+                    EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
                 }
             }
         }
