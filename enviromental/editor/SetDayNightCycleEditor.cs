@@ -5,6 +5,8 @@ using UnityEditor;
 [CustomEditor(typeof(SetDayNightCycle))]
 public class SetDayNightCycleEditor : Editor
 {
+    public DayNightCycle spawnDayNightCycle;
+
     SetDayNightCycle _target;
     DayNightCycle DayNightCycle;
     private void OnEnable()
@@ -22,13 +24,29 @@ public class SetDayNightCycleEditor : Editor
         GUILayout.Space(20);
         bool HasDayNightCycle = DayNightCycle != null && !Application.isPlaying;
 
-        GUI.color = Color.red;
-        string messageLog = "No ( DayNightCycle ) to preview";
+        string messageLog;
         if (HasDayNightCycle)
         {
             GUI.color = Color.green;
             messageLog = "Has ( " + DayNightCycle.gameObject.name + " ) to preview";
         }
+        else
+        {
+            GUI.color = new Color(1f,0.5f,0.5f);
+            messageLog = "No ( DayNightCycle ) exist to preview";
+
+            if (spawnDayNightCycle != null)
+            {
+                if (GUILayout.Button("Spawn DayNightCycle to Preview"))
+                {
+                    DayNightCycle _spawnedDayNight= (DayNightCycle) PrefabUtility.InstantiatePrefab(spawnDayNightCycle);
+                    DayNightCycle = _spawnedDayNight;
+
+                    RefreshDayNight();
+                }
+            }
+        }
+
         GUILayout.Label(messageLog);
         GUI.color = Color.white;
         //
@@ -37,14 +55,20 @@ public class SetDayNightCycleEditor : Editor
 
         if (GUI.changed)
         {
-            if (_target.activeDayNight)
-            {
-                DayNightCycle.skyData = _target.SkyData;
-                DayNightCycle.Setup();
-                DayNightCycle.UpdateSky();
-                DayNightCycle.ChangeTimeTo(_target.overrideTime);
-            }
+            RefreshDayNight();
+
             GUI.changed = false;
+        }
+    }
+
+    void RefreshDayNight()
+    {
+        if (_target.activeDayNight)
+        {
+            DayNightCycle.skyData = _target.SkyData;
+            DayNightCycle.Setup();
+            DayNightCycle.UpdateSky();
+            DayNightCycle.ChangeTimeTo(_target.overrideTime);
         }
     }
 }
