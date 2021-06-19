@@ -42,7 +42,7 @@ public class SetDayNightCycleEditor : Editor
                 DayNightCycle.skyData = _target.SkyData;
                 DayNightCycle.Setup();
                 DayNightCycle.UpdateSky();
-                if (_target.canOverrideTime) DayNightCycle.ChangeTimeTo(_target.overrideTime);
+                DayNightCycle.ChangeTimeTo(_target.overrideTime);
             }
             GUI.changed = false;
         }
