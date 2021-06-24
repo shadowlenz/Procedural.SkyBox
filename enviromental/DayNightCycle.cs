@@ -119,7 +119,8 @@ public class DayNightCycle : MonoBehaviour {
     public void TimeOfDayBar()
     {
         //can move time
-        if (Application.isPlaying && GameGlobal.instance != null && !GameGlobal.instance.isPaused)
+        bool CanMoveTime = Application.isPlaying && (GameGlobal.instance != null && !GameGlobal.instance.isPaused) && (DebugGame.instance != null && !DebugGame.instance.inDebug);
+        if (CanMoveTime)
         {
             timeOfDay += Time.unscaledDeltaTime * (skyData.speed / 360);
         }
