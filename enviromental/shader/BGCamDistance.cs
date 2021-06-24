@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoonCamDistance : MonoBehaviour {
+public class BGCamDistance : MonoBehaviour {
 
     public Transform master;
     public float distance = 1000;
