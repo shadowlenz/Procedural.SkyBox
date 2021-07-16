@@ -10,6 +10,7 @@ public class SetDayNightCycleEditor : Editor
 
     SetDayNightCycle _target;
     DayNightCycle DayNightCycle;
+
     private void OnEnable()
     {
         _target = (SetDayNightCycle)target;
@@ -22,8 +23,12 @@ public class SetDayNightCycleEditor : Editor
         DrawDefaultInspector();
 
         //
+        if (Application.isPlaying) return;
+
         GUILayout.Space(20);
-        bool HasDayNightCycle = DayNightCycle != null && !Application.isPlaying;
+        GUILayout.BeginVertical(EditorStyles.helpBox);
+
+        bool HasDayNightCycle = DayNightCycle != null;
 
         string messageLog;
         if (HasDayNightCycle)
@@ -52,16 +57,20 @@ public class SetDayNightCycleEditor : Editor
 
         GUILayout.Label(messageLog);
         GUI.color = Color.white;
-        //
+        //========================================================
+        EditorGUI.BeginChangeCheck();
 
-        if (!HasDayNightCycle) return;
+        SerializedProperty overrideTime_p = serializedObject.FindProperty(nameof(_target.overrideTime));
+        EditorGUILayout.PropertyField(overrideTime_p,new GUIContent("Preview Time"));
+        serializedObject.ApplyModifiedProperties();
 
-        if (GUI.changed)
+        if (EditorGUI.EndChangeCheck())
         {
             RefreshDayNight();
-
-            GUI.changed = false;
         }
+        //==============================================
+
+        GUILayout.EndVertical();
     }
 
     void RefreshDayNight()
