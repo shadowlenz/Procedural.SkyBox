@@ -72,7 +72,7 @@ public class DayNightCycle : MonoBehaviour {
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-            Setup();
+            //Setup();
         }
         else
         {
@@ -80,6 +80,7 @@ public class DayNightCycle : MonoBehaviour {
             Destroy(this.gameObject);
             return;
         }
+        DynamicGI.UpdateEnvironment();
     }
     Material ClonedMat;
     Material prevSourceMat;
