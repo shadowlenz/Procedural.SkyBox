@@ -38,5 +38,7 @@ public class SetDayNightCycle : MonoBehaviour
         }
 
         DayNightCycle.instance.active_DayNight = activeDayNight;
+
+        DynamicGI.UpdateEnvironment();
     }
 }
