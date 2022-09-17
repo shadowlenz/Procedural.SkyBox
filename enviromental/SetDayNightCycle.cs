@@ -12,7 +12,7 @@ public class SetDayNightCycle : MonoBehaviour
     public bool canOverrideTime = false;
     [Range(0,1)]public float overrideTime;
     [Space()]
-    public DayNightCycle.SkyData SkyData = new DayNightCycle.SkyData();
+    public DayNightCycle.SkyData SkyData;
     private void OnEnable()
     {
         StartCoroutine(DelayEnable());
@@ -33,8 +33,8 @@ public class SetDayNightCycle : MonoBehaviour
         {
             if (canOverrideTime) DayNightCycle.instance.ChangeTimeTo(overrideTime);
 
-            DayNightCycle.instance.skyData = SkyData;
-            DayNightCycle.instance.Setup();
+ 
+            DayNightCycle.instance.Setup(SkyData);
         }
 
         DayNightCycle.instance.active_DayNight = activeDayNight;

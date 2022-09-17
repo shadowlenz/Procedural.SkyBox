@@ -125,6 +125,7 @@ Material:
     - _intensity: 1
     - _shadow: 0
     - _smoothLight: 0
+    - _useSunLight: 0
     m_Colors:
     - _Color: {r: 2, g: 2, b: 2, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

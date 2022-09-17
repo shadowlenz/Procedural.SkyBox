@@ -77,9 +77,9 @@ public class SetDayNightCycleEditor : Editor
     {
         if (_target.activeDayNight)
         {
-            DayNightCycle.skyData = _target.SkyData;
-            DayNightCycle.Setup();
-            DayNightCycle.UpdateSky();
+         
+            DayNightCycle.Setup(_target.SkyData);
+            DayNightCycle.SkyOnUpdate();
             DayNightCycle.ChangeTimeTo(_target.overrideTime);
         }
     }

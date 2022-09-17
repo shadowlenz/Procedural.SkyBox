@@ -68,9 +68,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _cubeMap:
-        m_Texture: {fileID: 8900000, guid: 41bd1f2c511c9f6428bc0f7efe330511, type: 3}
+        m_Texture: {fileID: 8900000, guid: a44adf4c660f2b74e904de7beefe3250, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
     - _AtmosphereThickness: 1
@@ -114,7 +115,7 @@ Material:
     - _groundPow: 15.67
     - _offSet: 0
     - _sunFade: 0.18
-    - _sunRadius: 2.703204
+    - _sunRadius: 2.5017507
     - _useCubeMap: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -127,7 +128,7 @@ Material:
     - _SkyColor3: {r: 1, g: 0.9984524, b: 0.94664717, a: 1}
     - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SunColor: {r: 1, g: 0.98999995, b: 0.87, a: 1}
-    - _ground: {r: 0.9149304, g: 0.8683579, b: 0.7734503, a: 1}
-    - _horizon: {r: 0.9149304, g: 0.8683579, b: 0.7734503, a: 1}
-    - _top: {r: 0.3930911, g: 0.9512735, b: 1, a: 1}
+    - _ground: {r: 1, g: 0.70696366, b: 0.66473114, a: 1}
+    - _horizon: {r: 1, g: 0.70696366, b: 0.66473114, a: 1}
+    - _top: {r: 0.17597793, g: 0.503604, b: 0.65469146, a: 1}
   m_BuildTextureStacks: []

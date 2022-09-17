@@ -22,7 +22,7 @@ public class DayNightEditor : Editor
         bool InMainStage = StageUtility.GetCurrentStage() == StageUtility.GetMainStage() && _target.gameObject.scene.IsValid();
         if (InMainStage)
         {
-            _target.UpdateSky();
+            _target.SkyOnUpdate();
         }
     }
     public override void OnInspectorGUI()
@@ -87,7 +87,7 @@ public class DayNightEditor : Editor
                 if (_target.moonLight != null) Undo.RecordObject(_target.moonLight, "tweak time");
 
 
-                _target.UpdateSky();
+                _target.SkyOnUpdate();
 
 
 

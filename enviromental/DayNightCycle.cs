@@ -46,7 +46,7 @@ public class DayNightCycle : MonoBehaviour {
         public float fogToDayColor;
 
     }
-    public SkyData skyData = new SkyData();
+    public SkyData skyData;
 
 
     [Header("debug")]
@@ -84,6 +84,13 @@ public class DayNightCycle : MonoBehaviour {
     }
     Material ClonedMat;
     Material prevSourceMat;
+
+    public void Setup(SkyData _newSkyData)
+    {
+        skyData = _newSkyData;
+
+        Setup();
+    }
     public void Setup()
     {
         RenderSettings.sun = sunLight;
@@ -115,7 +122,7 @@ public class DayNightCycle : MonoBehaviour {
     // Update is called once per frame
     public void Update () {
 
-        UpdateSky();
+        SkyOnUpdate();
     }
     public void TimeOfDayBar()
     {
@@ -147,7 +154,7 @@ public class DayNightCycle : MonoBehaviour {
     }
 
     Vector3 SunRot = Vector3.zero;
-    public void UpdateSky()
+    public void SkyOnUpdate()
     {
         TimeOfDayBar();
 
